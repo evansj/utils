@@ -1,0 +1,15 @@
+#!/bin/sh
+
+# fij - Find In Jars
+
+#usage: fij searchstring jarfile [jarfile...]
+
+searchstring=$1
+shift
+
+for file in $*; do
+  unzip -l $file | grep -q $searchstring
+  if [[ $? -eq 0 ]]; then
+    echo $file
+  fi
+done
