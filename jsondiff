@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+if [[ $# -ne 2 ]]; then
+  echo "Usage: $0 jsonfile jsonfile"
+  exit 1
+fi
+
+if ! [[ -r "$1" ]]; then
+  echo "File not found: $1"
+  exit 1
+fi
+
+if ! [[ -r "$2" ]]; then
+  echo "File not found: $2"
+  exit 1
+fi
+
+diff -u <(jq -S . "$1") <(jq -S . "$2")
